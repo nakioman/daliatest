@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import ReservationConflict from './components/ReservationConflict';
 import ReservationForm from './components/Form';
+import ReservationConflict from './components/ReservationConflict';
 import ReservationSuccess from './components/ReservationSuccess';
 
 export default class ReservationPage extends Component {
