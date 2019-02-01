@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +10,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.7"/>
+    <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
   </ItemGroup>
 
 </Project>
