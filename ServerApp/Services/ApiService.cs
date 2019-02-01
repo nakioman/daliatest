@@ -40,7 +40,11 @@ namespace ServerApp.Services
         public async Task TakeSlot(TakeSlot slot, CancellationToken cancellationToken)
         {
             const string url = "TakeSlot";
-            var result = await _httpClient.PostAsJsonAsync(url, slot, cancellationToken);
+            var message = JsonConvert.SerializeObject(slot);
+            var messageBytes = Encoding.UTF8.GetBytes(message);
+            var content = new ByteArrayContent(messageBytes);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var result = await _httpClient.PostAsync(url, content, cancellationToken);
             if (!result.IsSuccessStatusCode)
             {
                 throw new HttpRequestException(result.ReasonPhrase);
@@ -62,20 +66,22 @@ namespace ServerApp.Services
 
         private HttpClient GetHttpClient(IConfiguration configuration)
         {
-                var httpClient = new HttpClient(_httpClientHandler);
-                var password = $"{configuration["Api:Username"]}:{configuration["Api:Password"]}";
-                var passwordBytes = Encoding.ASCII.GetBytes(password);
-                var authorization = Convert.ToBase64String(passwordBytes);
-                httpClient.BaseAddress = new Uri(configuration["Api:BaseUrl"]);
-                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authorization);
+            var httpClient = new HttpClient(_httpClientHandler);
+            var password = $"{configuration["Api:Username"]}:{configuration["Api:Password"]}";
+            var passwordBytes = Encoding.ASCII.GetBytes(password);
+            var authorization = Convert.ToBase64String(passwordBytes);
+            httpClient.BaseAddress = new Uri(configuration["Api:BaseUrl"]);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", authorization);
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            httpClient.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json");
 
-                return httpClient;
+            return httpClient;
         }
 
         public void Dispose()
         {
             _httpClient?.Dispose();
-            _httpClientHandler?.Dispose();;
+            _httpClientHandler?.Dispose();
         }
     }
 }

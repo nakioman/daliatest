@@ -29,6 +29,11 @@ namespace ServerApp.Controllers
         {
             var freeSlots = await _weekFreeSlotsAdapter.GetWeekFreeSlotsAsync(date, cancellationToken);
 
+            if (freeSlots == null)
+            {
+                return NotFound();
+            }
+
             return Ok(freeSlots);
         }
 
@@ -46,9 +51,10 @@ namespace ServerApp.Controllers
                         Phone = request.PatientPhone,
                         SecondName = request.PatientSurname
                     },
-                    Start = request.StartTime,
-                    End = request.EndTime,
-                    Comments = request.Comments
+                    Start = request.StartTime.ToLocalTime(),
+                    End = request.EndTime.ToLocalTime(),
+                    Comments = request.Comments,
+                    FacilityId = request.FacilityId,
                 };
 
                 await _apiService.TakeSlot(slot, cancellationToken);
