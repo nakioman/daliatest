@@ -11,7 +11,7 @@ const ReservationConflictComponent = () => (
         The reservation slot was already booked by another pacient, please choose another time
         slot.
       </Card.Text>
-      <Link to="/" className="btn btn-link">Home</Link>
+      <Link to="/" replace={true} className="btn btn-link">Home</Link>
     </Card.Body>
   </Card>
 );

@@ -2,6 +2,7 @@ import moment from 'moment';
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +17,7 @@ const ReservationSuccessComponent = (props: IReservationSuccessProps) => (
     <Card.Header>Reservation Success</Card.Header>
     <Card.Body>
       <Card.Title>Your reservation is confirmed, here are the details</Card.Title>
-      <Card.Text>
+      <Container>
         <Row>
           <Col xs={12} className="text-center">Facility:&nbsp;{props.facilityName}</Col>
         </Row>
@@ -26,8 +27,8 @@ const ReservationSuccessComponent = (props: IReservationSuccessProps) => (
         <Row>
           <Col md={12} className="text-center">Date:&nbsp;{moment(props.startTime).format('LLLL')}</Col>
         </Row>
-      </Card.Text>
-      <Link to="/" className="btn btn-link">
+        </Container>
+      <Link to="/" replace={true} className="btn btn-link">
         Home
       </Link>
     </Card.Body>

@@ -1,0 +1,25 @@
+.currentDate {
+  background-color: #007bff;
+}
+
+.header {
+  background-color: #1e7e34;
+  color: white;
+}
+
+.loadingIcon {
+  color: #d1ecf1;
+}
+
+.p {
+  margin: 0;
+}
+
+.contentRow {
+  text-align: center;
+  background-color: #fff3cd;
+}
+
+.currentDayColumn {
+  background-color: #d1ecf1;
+}

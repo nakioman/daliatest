@@ -10,7 +10,7 @@ const NotFoundPage = () => (
       <Card.Text>
         The page you are looking for does not exists.
       </Card.Text>
-      <Link to="/" className="btn btn-link">Home</Link>
+      <Link to="/" replace={true} className="btn btn-link">Home</Link>
     </Card.Body>
   </Card>
 );

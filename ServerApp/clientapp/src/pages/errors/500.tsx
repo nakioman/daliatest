@@ -10,7 +10,7 @@ const ServerErrorPage = () => (
       <Card.Text>
         There was a server error and the request could not be completed, please try again in a few minutes.
       </Card.Text>
-      <Link to="/" className="btn btn-link">Home</Link>
+      <Link to="/" replace={true} className="btn btn-link">Home</Link>
     </Card.Body>
   </Card>
 );

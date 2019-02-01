@@ -5,20 +5,21 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
 export interface ICalendarToolbarProps {
-  date: Date;
+  isLoading: boolean;
+  week: Date;
   view: 'week' | 'day';
-  setDate(date: Date): void;
+  updateWeek(week: Date): void;
 }
 
 export default class CalendarToolbarComponent extends Component<ICalendarToolbarProps, any> {
   public render() {
-    const { date } = this.props;
+    const { week, isLoading } = this.props;
     return (
       <Row>
         <Col xs="12" className="text-center">
           <Button
             size="sm"
-            disabled={moment(date).diff(moment(), 'hour') < 23}
+            disabled={moment(week).diff(moment(), 'hour') < 23 || isLoading}
             variant="secondary"
             onClick={this.showPrevView}
           >
@@ -27,14 +28,19 @@ export default class CalendarToolbarComponent extends Component<ICalendarToolbar
           &nbsp;
           <Button
             size="sm"
-            disabled={moment(date).diff(moment(), 'hour') < 23}
+            disabled={moment(week).diff(moment(), 'hour') < 23 || isLoading}
             variant="primary"
             onClick={this.showToday}
           >
             Today
           </Button>
           &nbsp;
-          <Button size="sm" variant="secondary" onClick={this.showNextView}>
+          <Button
+            size="sm"
+            disabled={isLoading}
+            variant="secondary"
+            onClick={this.showNextView}
+          >
             &gt;&gt;
           </Button>
         </Col>
@@ -43,26 +49,26 @@ export default class CalendarToolbarComponent extends Component<ICalendarToolbar
   }
 
   private showPrevView = () => {
-    const { setDate, view, date } = this.props;
+    const { updateWeek, view, week } = this.props;
     const nextDate =
       view === 'week'
-        ? date.setHours(date.getHours() - 24 * 7)
-        : date.setHours(date.getHours() - 24);
+        ? moment(week).subtract(1, 'weeks')
+        : moment(week).subtract(1, 'days');
 
-    setDate(new Date(nextDate));
+    updateWeek(nextDate.toDate());
   };
 
   private showNextView = () => {
-    const { setDate, view, date } = this.props;
+    const { updateWeek, view, week } = this.props;
     const nextDate =
       view === 'week'
-        ? date.setHours(date.getHours() + 24 * 7)
-        : date.setHours(date.getHours() + 24);
+      ? moment(week).add(1, 'weeks')
+      : moment(week).add(1, 'days');
 
-    setDate(new Date(nextDate));
+    updateWeek(nextDate.toDate());
   };
 
   private showToday = () => {
-    this.props.setDate(new Date());
+    this.props.updateWeek(new Date());
   };
 }
