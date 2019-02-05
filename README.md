@@ -4,8 +4,23 @@
 ## Prerequisites
 
 * [Node JS 10 LTS](https://nodejs.org)
-* [Visual Studio 2017 15.7 or later](https://docs.microsoft.com/en-us/visualstudio/install/update-visual-studio)
 * [Net Core 2.1.7 SDK 2.1.503](https://dotnet.microsoft.com/download/dotnet-core/2.1)
+
+## How to build
+
+To build the application execute:
+
+* inside _ServerApp\clientapp_ folder:
+
+```cmd
+npm install
+```
+
+* in the root folder:
+
+```cmd
+dot net restore
+```
 
 ## How to run
 
@@ -14,6 +29,8 @@ To run the application just execute in the root folder:
 ```cmd
 dotnet run --project ServerApp
 ```
+
+and browse to: http://localhost:5000
 
 To run the tests just execute in the root folder:
 
